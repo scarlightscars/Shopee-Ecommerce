@@ -52,7 +52,7 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* Festive Header Navigation & Logo */
+        /* Header Navigation & Logo */
         header { 
             background: var(--header-gradient); 
             color: white; 
@@ -70,7 +70,6 @@
             align-items: center; 
         }
 
-        /* Brand Logo Style */
         .brand-logo {
             display: flex;
             align-items: center;
@@ -101,11 +100,9 @@
             letter-spacing: -0.5px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
-        .logo-text span {
-            color: var(--gold);
-        }
+        .logo-text span { color: var(--gold); }
 
-        /* Cart Trigger & Pop Animation */
+        /* Cart Trigger */
         .cart-btn-trigger { 
             background: #ffffff; 
             color: #ff3366; 
@@ -141,7 +138,7 @@
 
         .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
 
-        /* Festive Promo Hero Banner */
+        /* Hero Banner */
         .festive-hero {
             background: var(--header-gradient);
             color: white;
@@ -177,7 +174,6 @@
             white-space: nowrap;
         }
 
-        /* Disclaimer Banner */
         .disclaimer-banner { 
             background-color: #fff9e6; 
             color: #b7791f; 
@@ -189,7 +185,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
-        /* Controls Area */
+        /* Controls */
         .controls { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         .search-input { 
             flex: 2; 
@@ -215,7 +211,7 @@
             color: var(--text);
         }
 
-        /* Festive Grid Cards */
+        /* Grid Cards with Motion */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.8rem; }
 
         .card { 
@@ -223,15 +219,15 @@
             border-radius: 16px; 
             overflow: hidden; 
             box-shadow: 0 6px 18px rgba(0,0,0,0.06); 
-            transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease; 
+            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.35s ease; 
             display: flex; 
             flex-direction: column; 
             position: relative; 
             border: 1px solid #ffeaa7;
+            cursor: pointer;
         }
-        .card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 15px 30px rgba(255, 71, 87, 0.18); }
+        .card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 18px 35px rgba(255, 71, 87, 0.22); }
 
-        /* Shimmer Image Wrapper */
         .img-wrapper { position: relative; width: 100%; height: 210px; overflow: hidden; background-color: #f1f2f6; }
         .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
         .card:hover .card-img { transform: scale(1.08); }
@@ -246,7 +242,7 @@
         }
         .card:hover .img-wrapper::after { left: 150%; }
 
-        /* Festive Pulsing Badge */
+        /* Floating Badge Animation */
         .badge { 
             position: absolute; 
             top: 12px; 
@@ -259,13 +255,12 @@
             border-radius: 20px; 
             z-index: 2; 
             box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4); 
-            animation: pulseGlow 2s infinite; 
+            animation: floatBadge 3s infinite ease-in-out; 
         }
 
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.6); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+        @keyframes floatBadge {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
         }
 
         .card-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
@@ -276,7 +271,6 @@
         .price { font-size: 1.35rem; color: var(--primary); font-weight: 900; }
         .original-price { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; }
 
-        /* Interactive Animated Buttons */
         .action-buttons { display: flex; gap: 8px; }
         .btn-primary { 
             flex: 1; 
@@ -308,6 +302,81 @@
             transition: background 0.2s, transform 0.2s; 
         }
         .btn-secondary:hover { background: #ffeaeae6; transform: translateY(-2px); }
+
+        /* PRODUCT DETAIL POP-UP MODAL STYLES */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            z-index: 300;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .product-modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 620px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transform: scale(0.85) translateY(20px);
+            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        .modal-overlay.active .product-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2f3542;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .modal-close:hover { transform: rotate(90deg) scale(1.1); background: #ff4757; color: white; }
+
+        .modal-content { display: flex; flex-direction: column; }
+        @media (min-width: 580px) {
+            .modal-content { display: grid; grid-template-columns: 1fr 1fr; }
+        }
+
+        .modal-img-container { height: 260px; position: relative; background: #f8f9fa; }
+        @media (min-width: 580px) { .modal-img-container { height: 100%; min-height: 320px; } }
+        .modal-img { width: 100%; height: 100%; object-fit: cover; }
+
+        .modal-body { padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; }
+        .modal-category { font-size: 0.75rem; color: var(--primary); font-weight: 800; text-transform: uppercase; margin-bottom: 0.3rem; }
+        .modal-title { font-size: 1.25rem; font-weight: 800; color: #2f3542; line-height: 1.3; margin-bottom: 0.8rem; }
+        .modal-description { font-size: 0.88rem; color: #57606f; line-height: 1.5; margin-bottom: 1.2rem; }
+        
+        .modal-highlights { background: #fff5f5; border-radius: 10px; padding: 0.8rem; margin-bottom: 1.2rem; border-left: 3px solid var(--primary); }
+        .modal-highlights li { font-size: 0.8rem; color: #2f3542; margin-left: 1rem; padding: 2px 0; font-weight: 600; }
+
+        .modal-price-box { display: flex; align-items: baseline; gap: 8px; margin-bottom: 1.2rem; }
+        .modal-price { font-size: 1.6rem; font-weight: 900; color: var(--primary); }
+        .modal-orig-price { font-size: 0.95rem; text-decoration: line-through; color: var(--text-muted); }
+        .modal-save-tag { background: #2ed573; color: white; font-size: 0.75rem; font-weight: 800; padding: 3px 8px; border-radius: 12px; }
 
         /* Slide-in Cart Drawer */
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 200; display: none; opacity: 0; transition: opacity 0.3s ease; }
@@ -351,7 +420,6 @@
 
 <header>
     <div class="nav-container">
-        <!-- Custom Brand Logo -->
         <a href="#" class="brand-logo">
             <div class="logo-icon">🐾</div>
             <div class="logo-text">Groom<span>Pet</span></div>
@@ -364,11 +432,10 @@
 </header>
 
 <div class="container">
-    <!-- Festive Promo Hero Banner -->
     <div class="festive-hero">
         <div class="hero-text">
             <h2>✨ Special Grooming & Pet Deals</h2>
-            <p>Handpicked daily deals on top grooming essentials & pet care supplies.</p>
+            <p>Click on any deal to view full details and instant vouchers.</p>
         </div>
         <div class="hero-badge">🎁 Up to 50% Off</div>
     </div>
@@ -377,7 +444,6 @@
         <strong>Affiliate Disclosure:</strong> Items featured here link directly to Shopee. Saving items allows you to compare products easily before purchasing on Shopee.
     </div>
 
-    <!-- Controls Row -->
     <div class="controls">
         <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search grooming or pet items...">
         <select id="categoryFilter" class="category-filter">
@@ -391,6 +457,37 @@
     </div>
 
     <div class="grid" id="productGrid"></div>
+</div>
+
+<!-- PRODUCT DETAIL POP-UP MODAL -->
+<div class="modal-overlay" id="productModalOverlay" onclick="closeModalOnOverlay(event)">
+    <div class="product-modal">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-content">
+            <div class="modal-img-container">
+                <img id="modalImg" class="modal-img" src="" alt="">
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div id="modalCategory" class="modal-category"></div>
+                    <h2 id="modalTitle" class="modal-title"></h2>
+                    <p id="modalDescription" class="modal-description"></p>
+                    <ul id="modalHighlights" class="modal-highlights"></ul>
+                </div>
+                <div>
+                    <div class="modal-price-box">
+                        <span id="modalPrice" class="modal-price"></span>
+                        <span id="modalOrigPrice" class="modal-orig-price"></span>
+                        <span class="modal-save-tag">Special Voucher</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="modalSaveBtn" class="btn-secondary">🛒 Save Item</button>
+                        <a id="modalShopeeLink" href="" class="btn-primary" target="_blank" rel="sponsored nofollow">Buy on Shopee</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
@@ -422,7 +519,9 @@
             "originalPrice": "₱1,100",
             "badge": "🔥 Festive Deal",
             "image": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=500&q=80",
-            "shopeeUrl": "https://s.shopee.ph/904Ax3lLwL"
+            "shopeeUrl": "https://s.shopee.ph/904Ax3lLwL",
+            "description": "Keep your furry friends hydrated with clean, triple-filtered flowing water. Designed with an ultra-silent submersed pump.",
+            "highlights": ["2 Liter Water Capacity", "Triple Filtration System", "Whisper Quiet (<30dB)"]
         },
         {
             "id": 2,
@@ -433,7 +532,9 @@
             "originalPrice": "₱499",
             "badge": "⚡ Hot Pick",
             "image": "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=500&q=80",
-            "shopeeUrl": "https://shopee.ph"
+            "shopeeUrl": "https://shopee.ph",
+            "description": "Easily remove loose hair, mats, and tangles with fine bent wire bristles. Features a one-click clean button to instantly retract bristles.",
+            "highlights": ["One-Click Fur Release", "Gentle Rubber-Coated Tips", "Ergonomic Anti-Slip Grip"]
         },
         {
             "id": 3,
@@ -444,7 +545,9 @@
             "originalPrice": "₱350",
             "badge": "⭐ Top Rated",
             "image": "https://images.unsplash.com/photo-1608248597260-3114979e2c40?auto=format&fit=crop&w=500&q=80",
-            "shopeeUrl": "https://shopee.ph"
+            "shopeeUrl": "https://shopee.ph",
+            "description": "Formulated with pure natural Madre de Cacao extract to soothe itchiness, combat ticks/fleas, and leave coats silky soft.",
+            "highlights": ["100% Organic & Paraben-Free", "Anti-Flea & Anti-Mange Formula", "Long-Lasting Fresh Scent"]
         },
         {
             "id": 4,
@@ -455,7 +558,9 @@
             "originalPrice": "₱899",
             "badge": "🎉 Best Seller",
             "image": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=500&q=80",
-            "shopeeUrl": "https://shopee.ph"
+            "shopeeUrl": "https://shopee.ph",
+            "description": "Professional-grade wireless pet clippers featuring titanium ceramic blades and low vibration so pets remain calm during grooming.",
+            "highlights": ["Low Vibration & Quiet Motor", "Complete Guard Combs Set", "Rechargeable USB Battery"]
         },
         {
             "id": 5,
@@ -466,7 +571,9 @@
             "originalPrice": "₱2,100",
             "badge": "✨ Popular",
             "image": "https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=500&q=80",
-            "shopeeUrl": "https://shopee.ph"
+            "shopeeUrl": "https://shopee.ph",
+            "description": "All-in-one grooming solution for beard, nose, ear, and body hair. IPX7 waterproof rating for easy wet/dry usage.",
+            "highlights": ["Self-Sharpening Steel Blades", "IPX7 Full Body Washable", "90-Min Cordless Runtime"]
         },
         {
             "id": 6,
@@ -477,7 +584,9 @@
             "originalPrice": "₱2,800",
             "badge": "🏷️ Trending",
             "image": "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&w=500&q=80",
-            "shopeeUrl": "https://shopee.ph"
+            "shopeeUrl": "https://shopee.ph",
+            "description": "Spacious multi-level activity center complete with plush perches, cozy condo cave, and natural sisal scratching posts.",
+            "highlights": ["Durable Natural Sisal Rope", "Plush Soft Fabric Perches", "Heavy-Duty Base Structure"]
         }
     ];
 
@@ -494,7 +603,7 @@
                 }
             }
         } catch (error) {
-            console.log('Using default embedded catalog.');
+            console.log('Using default catalog.');
         }
         populateCategories();
         filterAndRenderData();
@@ -514,7 +623,7 @@
             return;
         }
         grid.innerHTML = items.map(p => `
-            <div class="card">
+            <div class="card" onclick="openModal(${p.id})">
                 ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
                 <div class="img-wrapper">
                     <img class="card-img" src="${p.image}" alt="${p.title}" loading="lazy">
@@ -529,7 +638,7 @@
                             <span class="price">${p.price}</span>
                             ${p.originalPrice ? `<span class="original-price">${p.originalPrice}</span>` : ''}
                         </div>
-                        <div class="action-buttons">
+                        <div class="action-buttons" onclick="event.stopPropagation()">
                             <button class="btn-secondary" onclick="addToCart(${p.id})">🛒 Save</button>
                             <a href="${p.shopeeUrl}" class="btn-primary" target="_blank" rel="sponsored nofollow">Buy on Shopee</a>
                         </div>
@@ -537,6 +646,46 @@
                 </div>
             </div>
         `).join('');
+    }
+
+    /* MODAL POP-UP LOGIC */
+    function openModal(productId) {
+        const p = products.find(prod => prod.id === productId);
+        if (!p) return;
+
+        document.getElementById('modalImg').src = p.image;
+        document.getElementById('modalCategory').innerText = p.category;
+        document.getElementById('modalTitle').innerText = p.title;
+        document.getElementById('modalDescription').innerText = p.description || 'Special deals and vouchers available directly on Shopee.';
+        document.getElementById('modalPrice').innerText = p.price;
+        document.getElementById('modalOrigPrice').innerText = p.originalPrice || '';
+        document.getElementById('modalShopeeLink').href = p.shopeeUrl;
+        
+        const highlightsContainer = document.getElementById('modalHighlights');
+        if (p.highlights && p.highlights.length > 0) {
+            highlightsContainer.style.display = 'block';
+            highlightsContainer.innerHTML = p.highlights.map(h => `<li>✨ ${h}</li>`).join('');
+        } else {
+            highlightsContainer.style.display = 'none';
+        }
+
+        const modalSaveBtn = document.getElementById('modalSaveBtn');
+        modalSaveBtn.onclick = () => {
+            addToCart(p.id);
+            closeModal();
+        };
+
+        document.getElementById('productModalOverlay').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('productModalOverlay').classList.remove('active');
+    }
+
+    function closeModalOnOverlay(event) {
+        if (event.target.id === 'productModalOverlay') {
+            closeModal();
+        }
     }
 
     function addToCart(productId) {
@@ -609,7 +758,7 @@
         });
     }
 
-    // Event Listeners
+    // Controls listeners
     document.getElementById('searchInput').addEventListener('input', filterAndRenderData);
     document.getElementById('categoryFilter').addEventListener('change', filterAndRenderData);
     document.getElementById('sortFilter').addEventListener('change', filterAndRenderData);

@@ -64,5 +64,49 @@
     "badge": "Popular",
     "image": "https://images.unsplash.com/photo-1535294435445-d7249524ef2e?auto=format&fit=crop&w=500&q=80",
     "shopeeUrl": "https://shopee.ph"
+  },
+  {
+    "id": 7,
+    "title": "Multi-Layer Cat Tree Tower with Scratching Posts",
+    "category": "Pet Essentials",
+    "price": "₱1,450",
+    "rawPrice": 1450,
+    "originalPrice": "₱2,800",
+    "badge": "Trending",
+    "image": "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&w=500&q=80",
+    "shopeeUrl": "https://shopee.ph"
+  },
+  {
+    "id": 8,
+    "title": "High-Speed Ionic Hair Dryer with Magnetic Nozzles",
+    "category": "Personal Grooming",
+    "price": "₱1,890",
+    "rawPrice": 1890,
+    "originalPrice": "₱3,200",
+    "badge": "Top Seller",
+    "image": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=500&q=80",
+    "shopeeUrl": "https://shopee.ph"
+  },
+  {
+    "id": 9,
+    "title": "Orthopedic Memory Foam Dog Bed (Removable Cover)",
+    "category": "Pet Essentials",
+    "price": "₱980",
+    "rawPrice": 980,
+    "originalPrice": "₱1,600",
+    "badge": "Comfort Pick",
+    "image": "https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?auto=format&fit=crop&w=500&q=80",
+    "shopeeUrl": "https://shopee.ph"
+  },
+  {
+    "id": 10,
+    "title": "Ergonomic Mesh Home Office Desk Chair",
+    "category": "Home Office",
+    "price": "₱2,499",
+    "rawPrice": 2499,
+    "originalPrice": "₱4,500",
+    "badge": "Best Value",
+    "image": "https://images.unsplash.com/photo-1580481072645-022f9a6d1270?auto=format&fit=crop&w=500&q=80",
+    "shopeeUrl": "https://shopee.ph"
   }
 ]

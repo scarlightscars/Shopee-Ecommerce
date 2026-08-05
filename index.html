@@ -52,11 +52,11 @@
         /* Disclaimer Banner */
         .disclaimer-banner { background-color: #fff3cd; color: #856404; border-left: 4px solid #ffeba2; padding: 0.8rem 1rem; font-size: 0.85rem; border-radius: 4px; margin-bottom: 1.5rem; }
 
-        /* Controls */
+        /* Controls Area */
         .controls { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-        .search-input { flex: 1; min-width: 250px; padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; transition: border-color 0.2s, box-shadow 0.2s; }
+        .search-input { flex: 2; min-width: 240px; padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; transition: border-color 0.2s, box-shadow 0.2s; }
         .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 8px rgba(238, 77, 45, 0.2); }
-        .category-filter { padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; background: white; cursor: pointer; }
+        .category-filter, .sort-filter { flex: 1; min-width: 160px; padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; background: white; cursor: pointer; }
 
         /* Motion Graphic Grid Cards */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
@@ -159,10 +159,16 @@
         <strong>Affiliate Disclosure:</strong> Items featured here link directly to Shopee. Adding items to your saved list allows you to compare products and open them on Shopee.
     </div>
 
+    <!-- Controls Row with Search, Category Filter, and Price Sort Dropdown -->
     <div class="controls">
         <input type="text" id="searchInput" class="search-input" placeholder="Search grooming or pet items...">
         <select id="categoryFilter" class="category-filter">
             <option value="All">All Categories</option>
+        </select>
+        <select id="sortFilter" class="sort-filter">
+            <option value="featured">Featured / Default</option>
+            <option value="lowToHigh">Price: Low to High</option>
+            <option value="highToLow">Price: High to Low</option>
         </select>
     </div>
 
@@ -273,7 +279,7 @@
             console.log('Using default embedded catalog.');
         }
         populateCategories();
-        renderProducts(products);
+        filterAndRenderData();
         updateCartUI();
     }
 
@@ -286,7 +292,7 @@
     function renderProducts(items) {
         const grid = document.getElementById('productGrid');
         if (items.length === 0) {
-            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">No products found.</p>';
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666; padding: 2rem 0;">No products found.</p>';
             return;
         }
         grid.innerHTML = items.map(p => `
@@ -322,7 +328,7 @@
             saveCart();
             updateCartUI();
             
-            // Trigger cart count animation
+            // Trigger cart count bounce animation
             const countEl = document.getElementById('cartCount');
             countEl.classList.add('pop');
             setTimeout(() => countEl.classList.remove('pop'), 400);
@@ -386,18 +392,31 @@
         });
     }
 
-    document.getElementById('searchInput').addEventListener('input', filterData);
-    document.getElementById('categoryFilter').addEventListener('change', filterData);
+    // Event Listeners for Search, Filter, and Sorting
+    document.getElementById('searchInput').addEventListener('input', filterAndRenderData);
+    document.getElementById('categoryFilter').addEventListener('change', filterAndRenderData);
+    document.getElementById('sortFilter').addEventListener('change', filterAndRenderData);
 
-    function filterData() {
+    function filterAndRenderData() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
         const selectedCat = document.getElementById('categoryFilter').value;
+        const selectedSort = document.getElementById('sortFilter').value;
 
-        const filtered = products.filter(p => {
+        // 1. Filter by category & search term
+        let filtered = products.filter(p => {
             const matchesSearch = p.title.toLowerCase().includes(searchTerm) || p.category.toLowerCase().includes(searchTerm);
             const matchesCat = selectedCat === 'All' || p.category === selectedCat;
             return matchesSearch && matchesCat;
         });
+
+        // 2. Sort using JavaScript
+        if (selectedSort === 'lowToHigh') {
+            filtered.sort((a, b) => (a.rawPrice || 0) - (b.rawPrice || 0));
+        } else if (selectedSort === 'highToLow') {
+            filtered.sort((a, b) => (b.rawPrice || 0) - (a.rawPrice || 0));
+        } else if (selectedSort === 'featured') {
+            filtered.sort((a, b) => a.id - b.id);
+        }
 
         renderProducts(filtered);
     }

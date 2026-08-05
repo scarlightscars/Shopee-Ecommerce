@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curated Shopee Finds & Grooming Deals</title>
+    <title>Curated Shopee Grooming & Pet Deals</title>
     <style>
         :root {
             --primary: #ee4d2d;
@@ -17,10 +17,9 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body { background-color: var(--bg); color: var(--text); padding-bottom: 3rem; }
 
-        /* Header & Nav */
-        header { background: var(--primary); color: white; padding: 1.5rem 1rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        header { background: var(--primary); color: white; padding: 1.2rem 1rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .nav-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        header h1 { font-size: 1.5rem; }
+        header h1 { font-size: 1.4rem; }
         
         .cart-btn-trigger { background: white; color: var(--primary); border: none; padding: 0.6rem 1.2rem; border-radius: 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .cart-count { background: var(--primary); color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.8rem; }
@@ -29,20 +28,18 @@
 
         .disclaimer-banner { background-color: #fff3cd; color: #856404; border-left: 4px solid #ffeba2; padding: 0.8rem 1rem; font-size: 0.85rem; border-radius: 4px; margin-bottom: 1.5rem; }
 
-        /* Controls */
         .controls { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
         .search-input { flex: 1; min-width: 250px; padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; }
         .category-filter { padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; background: white; }
 
-        /* Product Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
         
         .card { background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.2s ease; display: flex; flex-direction: column; position: relative; }
         .card:hover { transform: translateY(-4px); }
         
         .badge { position: absolute; top: 10px; left: 10px; background: var(--primary); color: white; font-size: 0.75rem; font-weight: bold; padding: 4px 8px; border-radius: 4px; z-index: 2; }
         
-        .card-img { width: 100%; height: 210px; object-fit: cover; background-color: #e0e0e0; }
+        .card-img { width: 100%; height: 200px; object-fit: cover; background-color: #e0e0e0; }
         
         .card-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .card-category { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 0.3rem; }
@@ -58,7 +55,7 @@
         .btn-secondary { background: #f0f0f0; color: #333; border: 1px solid #ccc; padding: 0.6rem; border-radius: 6px; font-weight: bold; font-size: 0.85rem; cursor: pointer; }
         .btn-secondary:hover { background: #e0e0e0; }
 
-        /* Slide-out Cart Drawer */
+        /* Cart Drawer */
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; display: none; }
         .cart-drawer { position: fixed; top: 0; right: -400px; width: 100%; max-width: 380px; height: 100%; background: white; z-index: 201; transition: right 0.3s ease; display: flex; flex-direction: column; box-shadow: -2px 0 10px rgba(0,0,0,0.1); }
         .cart-drawer.open { right: 0; }
@@ -91,7 +88,7 @@
 
 <div class="container">
     <div class="disclaimer-banner">
-        <strong>Affiliate Disclosure:</strong> Items featured here link directly to Shopee. Adding items to your saved list allows you to compare prices and open product links directly on Shopee.
+        <strong>Affiliate Disclosure:</strong> Items featured here link directly to Shopee. Adding items to your saved list allows you to compare products and open them on Shopee.
     </div>
 
     <div class="controls">
@@ -104,16 +101,13 @@
     <div class="grid" id="productGrid"></div>
 </div>
 
-<!-- Cart Drawer -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
     <div class="cart-header">
         <h3>Your Saved Shopee Items</h3>
         <button class="close-cart" onclick="toggleCart()">&times;</button>
     </div>
-    <div class="cart-items" id="cartItemsContainer">
-        <!-- Cart Items Injected Here -->
-    </div>
+    <div class="cart-items" id="cartItemsContainer"></div>
     <div class="cart-footer">
         <div class="cart-total">
             <span>Estimated Total:</span>
@@ -126,19 +120,94 @@
 </div>
 
 <script>
-    let products = [];
+    // Default catalog embedded directly so the site never shows 0 items
+    const defaultProducts = [
+        {
+            "id": 1,
+            "title": "Automatic Pet Water Fountain 2L Ultra-Quiet",
+            "category": "Pet Essentials",
+            "price": "₱650",
+            "rawPrice": 650,
+            "originalPrice": "₱1,100",
+            "badge": "Best Seller",
+            "image": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=500&q=80",
+            "shopeeUrl": "https://shopee.ph"
+        },
+        {
+            "id": 2,
+            "title": "Professional Self-Cleaning Deshedding Pet Slicker Brush",
+            "category": "Pet Grooming",
+            "price": "₱289",
+            "rawPrice": 289,
+            "originalPrice": "₱499",
+            "badge": "Hot Deal",
+            "image": "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=500&q=80",
+            "shopeeUrl": "https://shopee.ph"
+        },
+        {
+            "id": 3,
+            "title": "Madre de Cacao Organic Pet Shampoo & Conditioner 500ml",
+            "category": "Pet Grooming",
+            "price": "₱185",
+            "rawPrice": 185,
+            "originalPrice": "₱350",
+            "badge": "Top Rated",
+            "image": "https://images.unsplash.com/photo-1608248597260-3114979e2c40?auto=format&fit=crop&w=500&q=80",
+            "shopeeUrl": "https://shopee.ph"
+        },
+        {
+            "id": 4,
+            "title": "Low-Noise Rechargeable Electric Pet Grooming Clipper Kit",
+            "category": "Pet Grooming",
+            "price": "₱499",
+            "rawPrice": 499,
+            "originalPrice": "₱899",
+            "badge": "Must Have",
+            "image": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=500&q=80",
+            "shopeeUrl": "https://shopee.ph"
+        },
+        {
+            "id": 5,
+            "title": "Men's Waterproof 5-in-1 Cordless Beard & Body Groomer",
+            "category": "Personal Grooming",
+            "price": "₱1,150",
+            "rawPrice": 1150,
+            "originalPrice": "₱2,100",
+            "badge": "Popular",
+            "image": "https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=500&q=80",
+            "shopeeUrl": "https://shopee.ph"
+        },
+        {
+            "id": 6,
+            "title": "Multi-Layer Cat Tree Tower with Scratching Posts",
+            "category": "Pet Essentials",
+            "price": "₱1,450",
+            "rawPrice": 1450,
+            "originalPrice": "₱2,800",
+            "badge": "Trending",
+            "image": "https://images.unsplash.com/photo-1545249390-6bdfa286032f?auto=format&fit=crop&w=500&q=80",
+            "shopeeUrl": "https://shopee.ph"
+        }
+    ];
+
+    let products = [...defaultProducts];
     let cart = JSON.parse(localStorage.getItem('shopee_affiliate_cart')) || [];
 
     async function loadProducts() {
         try {
             const response = await fetch('products.json');
-            products = await response.json();
-            populateCategories();
-            renderProducts(products);
-            updateCartUI();
+            if (response.ok) {
+                const fetchedProducts = await response.json();
+                if (fetchedProducts && fetchedProducts.length > 0) {
+                    products = fetchedProducts;
+                }
+            }
         } catch (error) {
-            console.error('Error loading product data:', error);
+            console.log('Using default embedded catalog.');
         }
+        populateCategories();
+        renderProducts(products);
+        updateCartUI();
     }
 
     function populateCategories() {
@@ -177,14 +246,13 @@
         `).join('');
     }
 
-    /* Cart Operations */
     function addToCart(productId) {
         const product = products.find(p => p.id === productId);
         if (product && !cart.some(item => item.id === productId)) {
             cart.push(product);
             saveCart();
             updateCartUI();
-            toggleCart(true); // Open drawer on save
+            toggleCart(true);
         }
     }
 
@@ -243,7 +311,6 @@
         });
     }
 
-    /* Filter & Search */
     document.getElementById('searchInput').addEventListener('input', filterData);
     document.getElementById('categoryFilter').addEventListener('change', filterData);
 

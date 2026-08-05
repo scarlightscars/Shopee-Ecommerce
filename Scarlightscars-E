@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Ergonomic Mechanical Keyboard",
+    "category": "Tech & Gadgets",
+    "price": "₱1,299",
+    "originalPrice": "₱2,500",
+    "badge": "Hot Deal",
+    "image": "https://via.placeholder.com/400x300?text=Mechanical+Keyboard",
+    "shopeeUrl": "#"
+  },
+  {
+    "id": 2,
+    "title": "Automatic Pet Water Fountain 2L",
+    "category": "Pet Essentials",
+    "price": "₱650",
+    "originalPrice": "₱1,100",
+    "badge": "Best Seller",
+    "image": "https://via.placeholder.com/400x300?text=Pet+Water+Fountain",
+    "shopeeUrl": "#"
+  },
+  {
+    "id": 3,
+    "title": "Minimalist Desk Pad / Mat",
+    "category": "Home Office",
+    "price": "₱299",
+    "originalPrice": "₱500",
+    "badge": "Under ₱300",
+    "image": "https://via.placeholder.com/400x300?text=Minimalist+Desk+Pad",
+    "shopeeUrl": "#"
+  }
+]

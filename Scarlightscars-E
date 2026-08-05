@@ -6,9 +6,9 @@
     "price": "₱650",
     "rawPrice": 650,
     "originalPrice": "₱1,100",
-    "badge": "Best Seller",
+    "badge": "Featured Deal",
     "image": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=500&q=80",
-    "shopeeUrl": "https://shopee.ph"
+    "shopeeUrl": "https://s.shopee.ph/904Ax3lLwL"
   },
   {
     "id": 2,
@@ -23,24 +23,24 @@
   },
   {
     "id": 3,
-    "title": "Low-Noise Rechargeable Pet Hair Clipper & Trimmer Kit",
+    "title": "Madre de Cacao Anti-Mange Pet Shampoo 500ml",
     "category": "Pet Grooming",
-    "price": "₱850",
-    "rawPrice": 850,
-    "originalPrice": "₱1,500",
+    "price": "₱185",
+    "rawPrice": 185,
+    "originalPrice": "₱350",
     "badge": "Top Rated",
-    "image": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=500&q=80",
+    "image": "https://images.unsplash.com/photo-1608248597260-3114979e2c40?auto=format&fit=crop&w=500&q=80",
     "shopeeUrl": "https://shopee.ph"
   },
   {
     "id": 4,
-    "title": "Hypoallergenic Organic Pet Shampoo & Conditioner 500ml",
+    "title": "Low-Noise Rechargeable Electric Pet Grooming Clipper Kit",
     "category": "Pet Grooming",
-    "price": "₱340",
-    "rawPrice": 340,
-    "originalPrice": "₱500",
-    "badge": "Under ₱500",
-    "image": "https://images.unsplash.com/photo-1608248597260-3114979e2c40?auto=format&fit=crop&w=500&q=80",
+    "price": "₱499",
+    "rawPrice": 499,
+    "originalPrice": "₱899",
+    "badge": "Must Have",
+    "image": "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=500&q=80",
     "shopeeUrl": "https://shopee.ph"
   },
   {
@@ -50,23 +50,12 @@
     "price": "₱1,150",
     "rawPrice": 1150,
     "originalPrice": "₱2,100",
-    "badge": "Must Have",
+    "badge": "Popular",
     "image": "https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=500&q=80",
     "shopeeUrl": "https://shopee.ph"
   },
   {
     "id": 6,
-    "title": "Electric Sonic Pet Toothbrush & Dental Care Set",
-    "category": "Pet Grooming",
-    "price": "₱420",
-    "rawPrice": 420,
-    "originalPrice": "₱750",
-    "badge": "Popular",
-    "image": "https://images.unsplash.com/photo-1535294435445-d7249524ef2e?auto=format&fit=crop&w=500&q=80",
-    "shopeeUrl": "https://shopee.ph"
-  },
-  {
-    "id": 7,
     "title": "Multi-Layer Cat Tree Tower with Scratching Posts",
     "category": "Pet Essentials",
     "price": "₱1,450",
@@ -77,18 +66,18 @@
     "shopeeUrl": "https://shopee.ph"
   },
   {
-    "id": 8,
-    "title": "High-Speed Ionic Hair Dryer with Magnetic Nozzles",
-    "category": "Personal Grooming",
-    "price": "₱1,890",
-    "rawPrice": 1890,
-    "originalPrice": "₱3,200",
-    "badge": "Top Seller",
-    "image": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=500&q=80",
+    "id": 7,
+    "title": "Electric Sonic Pet Toothbrush & Dental Care Set",
+    "category": "Pet Grooming",
+    "price": "₱420",
+    "rawPrice": 420,
+    "originalPrice": "₱750",
+    "badge": "Under ₱500",
+    "image": "https://images.unsplash.com/photo-1535294435445-d7249524ef2e?auto=format&fit=crop&w=500&q=80",
     "shopeeUrl": "https://shopee.ph"
   },
   {
-    "id": 9,
+    "id": 8,
     "title": "Orthopedic Memory Foam Dog Bed (Removable Cover)",
     "category": "Pet Essentials",
     "price": "₱980",
@@ -96,6 +85,17 @@
     "originalPrice": "₱1,600",
     "badge": "Comfort Pick",
     "image": "https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?auto=format&fit=crop&w=500&q=80",
+    "shopeeUrl": "https://shopee.ph"
+  },
+  {
+    "id": 9,
+    "title": "High-Speed Ionic Hair Dryer with Styling Nozzles",
+    "category": "Personal Grooming",
+    "price": "₱1,890",
+    "rawPrice": 1890,
+    "originalPrice": "₱3,200",
+    "badge": "Top Seller",
+    "image": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=500&q=80",
     "shopeeUrl": "https://shopee.ph"
   },
   {

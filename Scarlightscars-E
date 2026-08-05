@@ -108,5 +108,16 @@
     "badge": "Best Value",
     "image": "https://images.unsplash.com/photo-1580481072645-022f9a6d1270?auto=format&fit=crop&w=500&q=80",
     "shopeeUrl": "https://shopee.ph"
-  }
+  },
+  { 
+"id": 1,
+    "title": "Pickleball Paddle",
+    "category": "sports",
+    "price": "₱3,000",
+    "rawPrice": 1,500,
+    "originalPrice": "₱3,000",
+    "badge": "Featured Deal",
+    "image": "https://www.decathlon.com.hk/en-HK/p/usapa-approved-fibreglass-pickleball-racket-open-black-kuikma-8944446.html",
+    "shopeeUrl": "https://s.shopee.ph/904Ax3lLwL"
+}
 ]

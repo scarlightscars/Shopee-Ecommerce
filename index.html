@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curated Shopee Deals & Unbiased Reviews</title>
+    <style>
+        :root {
+            --primary: #ee4d2d;
+            --primary-hover: #d73211;
+            --bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --text: #222222;
+            --text-muted: #666666;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding-bottom: 3rem; }
+
+        header { background: var(--primary); color: white; padding: 2rem 1rem; text-align: center; }
+        header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1rem; }
+
+        .disclaimer-banner { background-color: #fff3cd; color: #856404; border-left: 4px solid #ffeba2; padding: 0.8rem 1rem; font-size: 0.85rem; border-radius: 4px; margin-bottom: 1.5rem; }
+
+        .controls { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        .search-input { flex: 1; min-width: 250px; padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; }
+        .category-filter { padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.95rem; background: white; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+        
+        .card { background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; position: relative; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+        
+        .badge { position: absolute; top: 10px; left: 10px; background: var(--primary); color: white; font-size: 0.75rem; font-weight: bold; padding: 4px 8px; border-radius: 4px; z-index: 2; }
+        
+        .card-img { width: 100%; height: 200px; object-fit: cover; background-color: #e0e0e0; }
+        
+        .card-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card-category { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 0.3rem; }
+        .card-title { font-size: 1rem; font-weight: 600; line-height: 1.3; margin-bottom: 0.5rem; height: 2.6rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        
+        .price-container { margin: 0.5rem 0 1rem; display: flex; align-items: baseline; gap: 0.5rem; }
+        .price { font-size: 1.2rem; color: var(--primary); font-weight: bold; }
+        .original-price { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; }
+        
+        .btn { display: block; width: 100%; background: var(--primary); color: white; text-align: center; text-decoration: none; padding: 0.7rem; border-radius: 6px; font-weight: bold; font-size: 0.9rem; transition: background 0.2s; }
+        .btn:hover { background: var(--primary-hover); }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Curated Shopee Deals</h1>
+    <p>Top-rated products from verified Mall sellers</p>
+</header>
+
+<div class="container">
+    <div class="disclaimer-banner">
+        <strong>Affiliate Disclaimer:</strong> Items featured here link directly to Shopee. If you purchase through these links, we may earn a small commission at no additional cost to you.
+    </div>
+
+    <div class="controls">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search products...">
+        <select id="categoryFilter" class="category-filter">
+            <option value="All">All Categories</option>
+        </select>
+    </div>
+
+    <div class="grid" id="productGrid"></div>
+</div>
+
+<script>
+    let products = [];
+
+    async function loadProducts() {
+        try {
+            const response = await fetch('products.json');
+            products = await response.json();
+            populateCategories();
+            renderProducts(products);
+        } catch (error) {
+            console.error('Error loading product data:', error);
+        }
+    }
+
+    function populateCategories() {
+        const categoryFilter = document.getElementById('categoryFilter');
+        const categories = ['All', ...new Set(products.map(p => p.category))];
+        categoryFilter.innerHTML = categories.map(c => `<option value="${c}">${c}</option>`).join('');
+    }
+
+    function renderProducts(items) {
+        const grid = document.getElementById('productGrid');
+        if (items.length === 0) {
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">No products found.</p>';
+            return;
+        }
+        grid.innerHTML = items.map(p => `
+            <div class="card">
+                ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
+                <img class="card-img" src="${p.image}" alt="${p.title}" loading="lazy">
+                <div class="card-body">
+                    <div>
+                        <div class="card-category">${p.category}</div>
+                        <h2 class="card-title">${p.title}</h2>
+                    </div>
+                    <div>
+                        <div class="price-container">
+                            <span class="price">${p.price}</span>
+                            ${p.originalPrice ? `<span class="original-price">${p.originalPrice}</span>` : ''}
+                        </div>
+                        <a href="${p.shopeeUrl}" class="btn" target="_blank" rel="sponsored nofollow">Check on Shopee</a>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Event Listeners for Filters
+    document.getElementById('searchInput').addEventListener('input', filterData);
+    document.getElementById('categoryFilter').addEventListener('change', filterData);
+
+    function filterData() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const selectedCat = document.getElementById('categoryFilter').value;
+
+        const filtered = products.filter(p => {
+            const matchesSearch = p.title.toLowerCase().includes(searchTerm) || p.category.toLowerCase().includes(searchTerm);
+            const matchesCat = selectedCat === 'All' || p.category === selectedCat;
+            return matchesSearch && matchesCat;
+        });
+
+        renderProducts(filtered);
+    }
+
+    loadProducts();
+</script>
+
+</body>
+</html>
